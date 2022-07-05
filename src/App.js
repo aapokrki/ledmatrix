@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react"
+import "./style.css"
 
-function App() {
+const App = () => {
+  const [notification, setNotification] = useState("asd")
+
+  const handleClick = (msg) => {
+    setNotification(msg)
+  }
+
+  const Grid = () => {
+    let row = -1
+    let col = 0
+    return (
+      <div className="grid-container">
+        {[...Array(256)].map((x, i) => {
+          if (i % 16 === 0 && i !== 0) {
+            col++
+            row = -1
+          }
+          row++
+
+          const msg = `[${row}, ${col}]`
+          return (
+            <button
+              key={i}
+              className="grid-item"
+              onClick={() => handleClick(msg)}
+            ></button>
+          )
+        })}
+      </div>
+    )
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <div className="center">asd</div>
+      <div className="gridcenter">
+        <Grid />
+      </div>
+      <div className="center">{notification}</div>
+    </>
+  )
 }
-
-export default App;
+export default App
